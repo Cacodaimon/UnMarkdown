@@ -1,0 +1,23 @@
+{
+    "name": "caco/un-markdown",
+    "description": "A PHP library which removes markdown formatting from text.",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^8.5",
+        "erusev/parsedown": "^1.7",
+        "devster/ubench": "^2.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Guido kKrömer",
+            "email": "mail@cacodaemon.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "UnMarkdown\\": "src/"
+        }
+    },
+    "require": {}
+}
