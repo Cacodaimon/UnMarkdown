@@ -4,7 +4,7 @@ namespace UnMarkdown\Tests;
 use UnMarkdown\Stripper;
 use PHPUnit\Framework\TestCase;
 
-class InlineTest extends TestCase
+class InlineLinkTest extends TestCase
 {
     /**
      * @var Stripper
@@ -15,7 +15,6 @@ class InlineTest extends TestCase
     {
         $this->classUnderTest = new Stripper();
     }
-
 
     public function testInlineStyleLink(): void
     {

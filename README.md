@@ -14,11 +14,10 @@ The goal is to convert markdown to plain text for chat notifications….
 ## TODO
 
 - [ ] Fix "block" tests to be compliant with [GitHub Flavored Markdown Spec](https://github.github.com/gfm/#tables-extension-)
-- [ ] [Table](https://github.github.com/gfm/#tables-extension-) support, interesting [stack overflow question](https://stackoverflow.com/questions/9837935/regex-for-markdown-table-syntax)
-- [ ] [Task list items](https://github.github.com/gfm/#task-list-items-extension-) support with ⭕ ️and ❌?
 - [ ] Support of reference links and images
-- [ ] Merge similar regex (e.g. strong with _ and strong with *) into single regex, should improve performance.
 - [ ] Support quoting: `\*\*foo\*\*` should become `**foo**` and not `\\foo\\`
+- [x] Merge similar regex (e.g. strong with _ and strong with *) into single regex, should improve performance.
+- [x] [Task list items](https://github.github.com/gfm/#task-list-items-extension-) support with ⭕ ️and ❌?
 - [x] Do not touch content of code blocks
 - [x] Convert to non capturing groups where possible .e.g. `([A-Z]+)` to `(?:[A-Z]+)`.
 ## Danger

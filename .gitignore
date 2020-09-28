@@ -1,0 +1,13 @@
+### Composer ###
+composer.phar
+/vendor/
+
+
+### IntelliJ
+.idea
+UnMarkdown.iml
+
+# PHP Unit
+.phpunit.result.cache
+phpunit-9.0.phar
+

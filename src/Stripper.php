@@ -25,12 +25,16 @@ class Stripper
      * @param string $imagePrefix
      * @param string $quotePrefix
      * @param string $unorderedListPrefix
+     * @param string $checkedTaskListPrefix
+     * @param string $unCheckedTaskListPrefix
      */
     public function __construct(
         string $linkPrefix = '🔗 ',
         string $imagePrefix = '🖼️ ',
         string $quotePrefix = '💬 ',
-        string $unorderedListPrefix = '⚫'
+        string $unorderedListPrefix = '⚫',
+        string $checkedTaskListPrefix = '⚫ ❌ ',
+        string $unCheckedTaskListPrefix = '⚫ ⭕ '
     )
     {
         $this->replacements = [
@@ -41,11 +45,11 @@ class Stripper
                 UnMarkdownReplacement::TYPE_LEAF_BLOCK
             ),
             new UnMarkdownReplacement(
-                '/(?:\ *`{3})(.*)\n(.*)(?:\s*?`{3})/Us',
+                '/(?:\ *(`|~){3})(.*)\n(.*)(?:\s*?\1{3})/Us',
                 function ($matches) {
                     return $this->preserveCodeBlock($matches);
                 },
-                'code block (```, ```java)',
+                'code block (```, ```java, ~~~, ~~~php)',
                 UnMarkdownReplacement::TYPE_LEAF_BLOCK
             ),
             new UnMarkdownReplacement(
@@ -61,51 +65,39 @@ class Stripper
                 UnMarkdownReplacement::TYPE_LEAF_BLOCK
             ),
             new UnMarkdownReplacement(
-                '/__((?!_).+?)__/',
-                '${1}',
-                'strong with _',
+                '/(_|\*)\1((?!(\1| )).+?)\1{2}/',
+                '${2}',
+                'strong with _|*',
                 UnMarkdownReplacement::TYPE_INLINE
             ),
             new UnMarkdownReplacement(
-                '/\*\*((?!\*).+?)\*\*/',
-                '${1}',
-                'strong with *',
+                '/(\*|_)((?!(\1| )).+?)\1/',
+                '${2}',
+                'italic with _|*',
                 UnMarkdownReplacement::TYPE_INLINE
             ),
             new UnMarkdownReplacement(
-                '/\*((?!\*).+?)\*/',
-                '${1}',
-                'italic with *',
-                UnMarkdownReplacement::TYPE_INLINE
-            ),
-            new UnMarkdownReplacement(
-                '/_((?!_).+?)_/',
-                '${1}',
-                'italic with _',
-                UnMarkdownReplacement::TYPE_INLINE
-            ),
-            new UnMarkdownReplacement(
-                '/~~((?!~).+?)~~/',
+                '/~~((?!(~| )).+?)~~/',
                 '${1}',
                 'strikethrough',
                 UnMarkdownReplacement::TYPE_INLINE
             ),
             new UnMarkdownReplacement(
-                '/(?:^|\n)(\s*)\*((?!\*).+?)(?:\n|\Z)/',
-                "\${1}$unorderedListPrefix\${2}",
-                'list with *',
+                '/(?:^|\n)(\s*)(\*|\+|-) {1,3}\[x\] +((?!\2).+?)(?:\n|\Z)/i',
+                "\${1}$checkedTaskListPrefix\${3}",
+                'task list (checked) with *|+|-',
                 UnMarkdownReplacement::TYPE_CONTAINER_BLOCK
             ),
             new UnMarkdownReplacement(
-                '/(?:^|\n)(\s*)\+((?!\+).+?)(?:\n|\Z)/',
-                "\${1}$unorderedListPrefix\${2}",
-                'list with +',
+                '/(?:^|\n)(\s*)(\*|\+|-) {1,3}\[ \] +((?!\2).+?)(?:\n|\Z)/i',
+                "\${1}$unCheckedTaskListPrefix\${3}",
+                'task list (un checked) with *|+|-',
                 UnMarkdownReplacement::TYPE_CONTAINER_BLOCK
             ),
             new UnMarkdownReplacement(
-                '/(?:^|\n)(\s*)\-((?!\-).+?)(?:\n|\Z)/',
-                "\${1}$unorderedListPrefix\${2}",
-                'list with -',
+                '/(?:^|\n)(\s*)(\*|\+|-)((?!\2).+?)(?:\n|\Z)/',
+                "\${1}$unorderedListPrefix\${3}",
+                'list with *|+|-',
                 UnMarkdownReplacement::TYPE_CONTAINER_BLOCK
             ),
             new UnMarkdownReplacement(
@@ -137,12 +129,6 @@ class Stripper
                 '${1}',
                 'code (inline)',
                 UnMarkdownReplacement::TYPE_INLINE
-            ),
-            new UnMarkdownReplacement(
-                '/(?:\n|\^)\|(.*)\|/',
-                'TABLE ${2}',
-                'table (row) TODO',
-                UnMarkdownReplacement::TYPE_CONTAINER_BLOCK
             ),
         ];
     }
@@ -184,7 +170,7 @@ class Stripper
     private function preserveCodeBlock(array $matches): string
     {
         $id = count($this->codeBlocks);
-        $this->codeBlocks[$id = "@@@CODE_BLOCK:$id@@@"] = $matches[2];
+        $this->codeBlocks[$id = "@@@CODE_BLOCK:$id@@@"] = "$matches[3]\n";
 
         return $id;
     }
