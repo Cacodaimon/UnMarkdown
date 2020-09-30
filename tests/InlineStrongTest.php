@@ -75,4 +75,17 @@ class InlineStrongTest extends TestCase
             $this->classUnderTest->strip($noChange)
         );
     }
+
+    public function testNoStrong() : void
+    {
+        self::assertSame(
+            $noChange = '__ Test __ strong replacement',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            '** Test ** strong replacement',
+            $this->classUnderTest->strip('** Test ** strong replacement')
+        );
+    }
 }

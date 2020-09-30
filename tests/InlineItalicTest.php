@@ -69,10 +69,18 @@ class InlineItalicTest extends TestCase
             $exptect,
             $this->classUnderTest->strip('_Test_ _italic_ _replacement_')
         );
+    }
 
+    public function testNotItalic(): void
+    {
         self::assertSame(
             $noChange = '_ Test _ italic replacement',
             $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            '⚫ Test * italic replacement',
+            $this->classUnderTest->strip('* Test * italic replacement')
         );
     }
 }
