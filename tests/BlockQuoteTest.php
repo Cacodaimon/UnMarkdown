@@ -27,7 +27,17 @@ class BlockQuoteTest extends TestCase
 
         self::assertSame(
             $expected,
+            $this->classUnderTest->strip('>block quote')
+        );
+
+        self::assertSame(
+            $expected,
             $this->classUnderTest->strip('>> block quote')
+        );
+
+        self::assertSame(
+            $expected,
+            $this->classUnderTest->strip('>>block quote')
         );
 
         self::assertSame(
@@ -37,7 +47,17 @@ class BlockQuoteTest extends TestCase
 
         self::assertSame(
             $expected,
+            $this->classUnderTest->strip('>>>block quote')
+        );
+
+        self::assertSame(
+            $expected,
             $this->classUnderTest->strip(' > block quote')
+        );
+
+        self::assertSame(
+            $expected,
+            $this->classUnderTest->strip(' >block quote')
         );
 
         self::assertSame(
@@ -47,9 +67,21 @@ class BlockQuoteTest extends TestCase
 
         self::assertSame(
             $expected,
-            $this->classUnderTest->strip(' >>> block quote')
+            $this->classUnderTest->strip(' >>block quote')
         );
 
+        self::assertSame(
+            $expected,
+            $this->classUnderTest->strip(' >>> block quote')
+        );
+        self::assertSame(
+            $expected,
+            $this->classUnderTest->strip(' >>>block quote')
+        );
+    }
+
+    public function testNotBlockQuote(): void
+    {
         self::assertSame(
             $noChange = 'not a > block quote',
             $this->classUnderTest->strip($noChange)
@@ -138,6 +170,47 @@ class BlockQuoteTest extends TestCase
         self::assertSame(
             "\n💬 block quote 🖼️ inline image alt text",
             $this->classUnderTest->strip('> block quote ![inline image alt text](https://example-com/image.jpg)')
+        );
+    }
+
+    public function testLeadingSpacesBlockQuote(): void
+    {
+        self::assertSame(
+            "\n💬 block quote",
+            $this->classUnderTest->strip(' > block quote')
+        );
+
+        self::assertSame(
+            "\n💬 block quote",
+            $this->classUnderTest->strip('  > block quote')
+        );
+
+        self::assertSame(
+            "\n💬 block quote",
+            $this->classUnderTest->strip('   > block quote')
+        );
+
+        self::assertSame(
+            $noChange = '    > block quote',
+            $this->classUnderTest->strip($noChange)
+        );
+    }
+
+    public function testEscapedBlockQuote(): void
+    {
+        self::assertSame(
+            '> block quote',
+            $this->classUnderTest->strip('\> block quote')
+        );
+
+        self::assertSame(
+            '>> block quote',
+            $this->classUnderTest->strip('\>> block quote')
+        );
+
+        self::assertSame(
+            "\n💬 > block quote",
+            $this->classUnderTest->strip('>\> block quote')
         );
     }
 }

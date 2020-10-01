@@ -19,26 +19,89 @@ class BlockFencedCodeTest extends TestCase
     public function testCodeBlockBackticks(): void
     {
         self::assertSame(
-            $noChange = "Some markdown and a\ncode = **block**;\n",
+            "Some markdown and a\ncode = **block**;\n",
             $this->classUnderTest->strip("Some **markdown** and a\n```\ncode = **block**;\n```")
         );
 
         self::assertSame(
-            $noChange = "SQL example!\nvar sql = \"SELECT `bar` FROM foo;\";\nvar results = db.execute(sql);\n",
-            $this->classUnderTest->strip("**`SQL`** example!\n```java\nvar sql = \"SELECT `bar` FROM foo;\";\nvar results = db.execute(sql);\n```")
+            "SQL example!\nvar sql = \"SELECT `bar` FROM foo;\";\nvar results = db.execute(sql);\n",
+            $this->classUnderTest->strip("**SQL** example!\n```java\nvar sql = \"SELECT `bar` FROM foo;\";\nvar results = db.execute(sql);\n```")
         );
     }
 
     public function testCodeBlockTildes(): void
     {
         self::assertSame(
-            $noChange = "Some markdown and a\ncode = **block**;\n",
+            "Some markdown and a\ncode = **block**;\n",
             $this->classUnderTest->strip("Some **markdown** and a\n~~~\ncode = **block**;\n~~~")
         );
 
         self::assertSame(
-            $noChange = "SQL example!\nvar sql = \"SELECT `bar` FROM foo;\";\nvar results = db.execute(sql);\n",
-            $this->classUnderTest->strip("**`SQL`** example!\n~~~java\nvar sql = \"SELECT `bar` FROM foo;\";\nvar results = db.execute(sql);\n~~~")
+            "SQL example!\nvar sql = \"SELECT `bar` FROM foo;\";\nvar results = db.execute(sql);\n",
+            $this->classUnderTest->strip("**SQL** example!\n~~~java\nvar sql = \"SELECT `bar` FROM foo;\";\nvar results = db.execute(sql);\n~~~")
+        );
+    }
+
+    public function testEscapedCodeBlock(): void
+    {
+        self::assertSame(
+            $noChange = "\n~~~\ncode = block;\n~~~\n",
+            $this->classUnderTest->strip("\n\~~~\ncode = **block**;\n~~~\n")
+        );
+
+        self::assertSame(
+            "\n```\ncode = block;\n```\n",
+            $this->classUnderTest->strip("\n\```\ncode = **block**;\n```\n")
+        );
+
+        self::assertSame(
+            $noChange = "\n~~~\ncode = block;\n~~~\n",
+            $this->classUnderTest->strip("\n~\~~\ncode = **block**;\n~~~\n")
+        );
+
+        self::assertSame(
+            "\n```\ncode = block;\n```\n",
+            $this->classUnderTest->strip("\n`\``\ncode = block;\n```\n")
+        );
+
+        self::assertSame(
+            $noChange = "\n~~~\ncode = block;\n~~~\n",
+            $this->classUnderTest->strip("\n~~\~\ncode = **block**;\n~~~\n")
+        );
+
+        self::assertSame(
+            "\n```\ncode = block;\n```\n",
+            $this->classUnderTest->strip("\n``\`\ncode = **block**;\n```\n")
+        );
+
+        self::assertSame(
+            $noChange = "\n~~~\ncode = block;\n~~~\n",
+            $this->classUnderTest->strip("\n~~~\ncode = **block**;\n\~~~\n")
+        );
+
+        self::assertSame(
+            "\n```\ncode = block;\n```\n",
+            $this->classUnderTest->strip("\n```\ncode = **block**;\n\```\n")
+        );
+
+        self::assertSame(
+            $noChange = "\n~~~\ncode = block;\n~~~\n",
+            $this->classUnderTest->strip("\n~~~\ncode = **block**;\n~\~~\n")
+        );
+
+        self::assertSame(
+            "\n```\ncode = block;\n```\n",
+            $this->classUnderTest->strip("\n```\ncode = **block**;\n`\``\n")
+        );
+
+        self::assertSame(
+            $noChange = "\n~~~\ncode = block;\n~~~\n",
+            $this->classUnderTest->strip("\n~~~\ncode = **block**;\n~~\~\n")
+        );
+
+        self::assertSame(
+            "\n```\ncode = block;\n```\n",
+            $this->classUnderTest->strip("\n```\ncode = **block**;\n``\`\n")
         );
     }
 

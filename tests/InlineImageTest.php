@@ -69,4 +69,52 @@ class InlineImageTest extends TestCase
             $this->classUnderTest->strip('Test replacement ![reference style image alt text][logo]')
         );
     }
+
+    public function testEscapedInlineImage(): void
+    {
+        self::assertSame(
+            '!🔗 https://example-com/image.jpg Test replacement',
+            $this->classUnderTest->strip('\![inline image alt text](https://example-com/image.jpg) Test replacement')
+        );
+
+        self::assertSame(
+            'Test !🔗 https://example-com/image.jpg replacement',
+            $this->classUnderTest->strip('Test \![inline image alt text](https://example-com/image.jpg) replacement')
+        );
+
+        self::assertSame(
+            'Test replacement !🔗 https://example-com/image.jpg',
+            $this->classUnderTest->strip('Test replacement \![inline image alt text](https://example-com/image.jpg)')
+        );
+
+        self::assertSame(
+            '![inline image alt text](https://example-com/image.jpg) Test replacement',
+            $this->classUnderTest->strip('!\[inline image alt text](https://example-com/image.jpg) Test replacement')
+        );
+
+        self::assertSame(
+            'Test replacement !🔗 https://example-com/image.jpg',
+            $this->classUnderTest->strip('Test replacement \![inline image alt text](https://example-com/image.jpg)')
+        );
+
+        self::assertSame(
+            'Test replacement ![inline image alt text](https://example-com/image.jpg)',
+            $this->classUnderTest->strip('Test replacement !\[inline image alt text](https://example-com/image.jpg)')
+        );
+
+        self::assertSame(
+            'Test replacement ![inline image alt text](https://example-com/image.jpg)',
+            $this->classUnderTest->strip('Test replacement ![inline image alt text\](https://example-com/image.jpg)')
+        );
+
+        self::assertSame(
+            'Test replacement ![inline image alt text](https://example-com/image.jpg)',
+            $this->classUnderTest->strip('Test replacement ![inline image alt text]\(https://example-com/image.jpg)')
+        );
+
+        self::assertSame(
+            'Test replacement ![inline image alt text](https://example-com/image.jpg)',
+            $this->classUnderTest->strip('Test replacement ![inline image alt text](https://example-com/image.jpg\)')
+        );
+    }
 }

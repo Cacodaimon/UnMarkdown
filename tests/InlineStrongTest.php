@@ -88,4 +88,47 @@ class InlineStrongTest extends TestCase
             $this->classUnderTest->strip('** Test ** strong replacement')
         );
     }
+
+    public function testEscapedStrong(): void
+    {
+        self::assertSame(
+            'Test** strong replacement',
+            $this->classUnderTest->strip('**Test\*\* strong** replacement')
+        );
+
+        self::assertSame(
+            '**Test** strong replacement',
+            $this->classUnderTest->strip('\*\*Test\*\* strong replacement')
+        );
+
+        self::assertSame(
+            '*Test* strong replacement',
+            $this->classUnderTest->strip('\**Test*\* strong replacement')
+        );
+
+        self::assertSame(
+            '*Test* strong replacement',
+            $this->classUnderTest->strip('*\*Test\** strong replacement')
+        );
+
+        self::assertSame(
+            '*Test* strong replacement',
+            $this->classUnderTest->strip('\**Test** strong replacement')
+        );
+
+        self::assertSame(
+            '*Test* strong replacement',
+            $this->classUnderTest->strip('*\*Test** strong replacement')
+        );
+
+        self::assertSame(
+            '*Test* strong replacement',
+            $this->classUnderTest->strip('**Test\** strong replacement')
+        );
+
+        self::assertSame(
+            '*Test* strong replacement',
+            $this->classUnderTest->strip('**Test*\* strong replacement')
+        );
+    }
 }

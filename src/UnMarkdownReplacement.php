@@ -9,9 +9,10 @@ use InvalidArgumentException;
  */
 class UnMarkdownReplacement
 {
-    const TYPE_INLINE = 'inline';
-    const TYPE_CONTAINER_BLOCK = 'container block';
-    const TYPE_LEAF_BLOCK = 'leaf block';
+    const TYPE_INLINE = 1;
+    const TYPE_CONTAINER_BLOCK = 2;
+    const TYPE_LEAF_BLOCK = 3;
+    const TYPE_SPECIAL = 4; // special: no markdown e.g. cleanup etc.
 
     /**
      * @var string

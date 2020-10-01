@@ -45,4 +45,47 @@ class InlineStrikethroughTest extends TestCase
             $this->classUnderTest->strip($noChange)
         );
     }
+
+    public function testEscapedStrikethrough(): void
+    {
+        self::assertSame(
+            '~~Test~~ strikethrough replacement',
+            $this->classUnderTest->strip('\~\~Test\~\~ strikethrough replacement')
+        );
+
+        self::assertSame(
+            'Test ~~strikethrough~~ replacement',
+            $this->classUnderTest->strip('Test \~\~strikethrough\~\~ replacement')
+        );
+
+        self::assertSame(
+            'Test strikethrough ~~replacement~~',
+            $this->classUnderTest->strip('Test strikethrough \~\~replacement\~\~')
+        );
+
+        self::assertSame(
+            '~~Test~~ ~~strikethrough~~ ~~replacement~~',
+            $this->classUnderTest->strip('\~\~Test\~\~ \~\~strikethrough\~\~ \~\~replacement\~\~')
+        );
+
+        self::assertSame(
+            '~~Test~~ strikethrough replacement',
+            $this->classUnderTest->strip('\~~Test~\~ strikethrough replacement')
+        );
+
+        self::assertSame(
+            'Test ~~strikethrough~~ replacement',
+            $this->classUnderTest->strip('Test ~\~strikethrough\~~ replacement')
+        );
+
+        self::assertSame(
+            'Test strikethrough ~~replacement~~',
+            $this->classUnderTest->strip('Test strikethrough \~\~replacement~~')
+        );
+
+        self::assertSame(
+            '~~Test~~ strikethrough replacement',
+            $this->classUnderTest->strip('~~Test\~\~ strikethrough replacement')
+        );
+    }
 }

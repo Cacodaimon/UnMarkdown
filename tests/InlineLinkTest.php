@@ -29,8 +29,8 @@ class InlineLinkTest extends TestCase
         );
 
         self::assertSame(
-            'Test replacement 🔗 https://www.google.com ',
-            $this->classUnderTest->strip('Test replacement [I\'m an inline-style link](https://www.google.com) ')
+            'Test replacement 🔗 https://www.google.com',
+            $this->classUnderTest->strip('Test replacement [I\'m an inline-style link](https://www.google.com)')
         );
     }
 
@@ -100,6 +100,39 @@ class InlineLinkTest extends TestCase
         self::assertSame(
             'Test replacement https://www.google.com',
             $this->classUnderTest->strip('Test replacement https://www.google.com')
+        );
+    }
+
+    public function testEscapedInlineImage(): void
+    {
+        self::assertSame(
+            '[I\'m an inline-style link](https://www.google.com) Test replacement',
+            $this->classUnderTest->strip('\[I\'m an inline-style link](https://www.google.com) Test replacement')
+        );
+
+        self::assertSame(
+            'Test [I\'m an inline-style link](https://www.google.com) replacement',
+            $this->classUnderTest->strip('Test \[I\'m an inline-style link](https://www.google.com) replacement')
+        );
+
+        self::assertSame(
+            'Test replacement [I\'m an inline-style link](https://www.google.com)',
+            $this->classUnderTest->strip('Test replacement \[I\'m an inline-style link](https://www.google.com)')
+        );
+
+        self::assertSame(
+            '[I\'m an inline-style link](https://www.google.com)',
+            $this->classUnderTest->strip('[I\'m an inline-style link\](https://www.google.com)')
+        );
+
+        self::assertSame(
+            '[I\'m an inline-style link](https://www.google.com)',
+            $this->classUnderTest->strip('[I\'m an inline-style link]\(https://www.google.com)')
+        );
+
+        self::assertSame(
+            '[I\'m an inline-style link](https://www.google.com)',
+            $this->classUnderTest->strip('[I\'m an inline-style link](https://www.google.com\)')
         );
     }
 }

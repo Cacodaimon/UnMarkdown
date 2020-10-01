@@ -37,6 +37,11 @@ class BlockUnorderedListTest extends TestCase
             $noChange = 'Not a * list item (lvl 1)',
             $this->classUnderTest->strip($noChange)
         );
+
+        self::assertSame(
+            '⚫ A list item (lvl 1)',
+            $this->classUnderTest->strip('* A list item (lvl 1)')
+        );
     }
 
     public function testUnorderedListMinus(): void
@@ -60,6 +65,11 @@ class BlockUnorderedListTest extends TestCase
             $noChange = 'Not a - list item (lvl 1)',
             $this->classUnderTest->strip($noChange)
         );
+
+        self::assertSame(
+            '⚫ A list item (lvl 1)',
+            $this->classUnderTest->strip('- A list item (lvl 1)')
+        );
     }
 
     public function testUnorderedListPlus(): void
@@ -81,6 +91,77 @@ class BlockUnorderedListTest extends TestCase
 
         self::assertSame(
             $noChange = 'Not a - list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            '⚫ A list item (lvl 1)',
+            $this->classUnderTest->strip('+ A list item (lvl 1)')
+        );
+    }
+
+    public function testNotAListItem(): void
+    {
+        self::assertSame(
+            $noChange = '*Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '  *Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '+Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '  +Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '-Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '  -Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+    }
+
+    public function testEscapedListItem(): void
+    {
+        self::assertSame(
+            $noChange = '*Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '  *Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '+Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '  +Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = '-Not a list item (lvl 1)',
+            $this->classUnderTest->strip($noChange)
+        );
+
+        self::assertSame(
+            $noChange = ' -Not a list item (lvl 1)',
             $this->classUnderTest->strip($noChange)
         );
     }

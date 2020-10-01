@@ -22,7 +22,7 @@ class InlineItalicTest extends TestCase
 
         self::assertSame(
             $expected,
-            $this->classUnderTest->strip('*Test* italic replacement')
+            $this->classUnderTest->strip('Test italic *replacement*')
         );
 
         self::assertSame(
@@ -32,7 +32,7 @@ class InlineItalicTest extends TestCase
 
         self::assertSame(
             $expected,
-            $this->classUnderTest->strip('Test italic *replacement*')
+            $this->classUnderTest->strip('*Test* italic replacement')
         );
 
         self::assertSame(
@@ -52,17 +52,17 @@ class InlineItalicTest extends TestCase
 
         self::assertSame(
             $exptect,
-            $this->classUnderTest->strip('_Test_ italic replacement')
-        );
-
-        self::assertSame(
-            $exptect,
             $this->classUnderTest->strip('Test _italic_ replacement')
         );
 
         self::assertSame(
             $exptect,
             $this->classUnderTest->strip('Test italic _replacement_')
+        );
+
+        self::assertSame(
+            $exptect,
+            $this->classUnderTest->strip('_Test_ italic replacement')
         );
 
         self::assertSame(
@@ -81,6 +81,44 @@ class InlineItalicTest extends TestCase
         self::assertSame(
             '⚫ Test * italic replacement',
             $this->classUnderTest->strip('* Test * italic replacement')
+        );
+    }
+
+    public function testEscapedItalic(): void
+    {
+        self::assertSame(
+            'Test_ italic replacement',
+            $this->classUnderTest->strip('_Test\_ italic_ replacement')
+        );
+
+        self::assertSame(
+            '_Test_ italic replacement',
+            $this->classUnderTest->strip('\_Test\_ italic replacement')
+        );
+
+        self::assertSame(
+            '_Test_ italic replacement',
+            $this->classUnderTest->strip('\_Test_ italic replacement')
+        );
+
+        self::assertSame(
+            '_Test_ italic replacement',
+            $this->classUnderTest->strip('_Test\_ italic replacement')
+        );
+
+        self::assertSame(
+            '*Test* italic replacement',
+            $this->classUnderTest->strip('\*Test\* italic replacement')
+        );
+
+        self::assertSame(
+            '*Test* italic replacement',
+            $this->classUnderTest->strip('\*Test* italic replacement')
+        );
+
+        self::assertSame(
+            '*Test* italic replacement',
+            $this->classUnderTest->strip('*Test\* italic replacement')
         );
     }
 }

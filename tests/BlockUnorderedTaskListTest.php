@@ -252,4 +252,37 @@ class BlockUnorderedTaskListTest extends TestCase
             $this->classUnderTest->strip($noChange)
         );
     }
+
+    public function testEscapedUnorderedTask(): void
+    {
+        self::assertSame(
+            '* [ ] Not a task list item (lvl 1)',
+            $this->classUnderTest->strip('\* [ ] Not a task list item (lvl 1)')
+        );
+
+        self::assertSame(
+            '+ [ ] Not a task list item (lvl 1)',
+            $this->classUnderTest->strip('\+ [ ] Not a task list item (lvl 1)')
+        );
+
+        self::assertSame(
+            '- [ ] Not a task list item (lvl 1)',
+            $this->classUnderTest->strip('\- [ ] Not a task list item (lvl 1)')
+        );
+
+        self::assertSame(
+            '* [x] Not a task list item (lvl 1)',
+            $this->classUnderTest->strip('\* [x] Not a task list item (lvl 1)')
+        );
+
+        self::assertSame(
+            '+ [x] Not a task list item (lvl 1)',
+            $this->classUnderTest->strip('\+ [x] Not a task list item (lvl 1)')
+        );
+
+        self::assertSame(
+            '- [x] Not a task list item (lvl 1)',
+            $this->classUnderTest->strip('\- [x] Not a task list item (lvl 1)')
+        );
+    }
 }
