@@ -155,16 +155,6 @@ class MarkdownRemover
      */
     public function strip(string $markdown): string
     {
-        return $this->replaceAll($markdown);
-    }
-
-    /**
-     * Performs all UnMarkdownReplacement in the given order.
-     *
-     * @param string $markdown
-     * @return string
-     */
-    private function replaceAll(string $markdown): string {
         $this->codeBlocks = [];
         $result = $markdown;
         foreach ($this->replacements as $replacement) {

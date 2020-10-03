@@ -9,9 +9,9 @@ use InvalidArgumentException;
  */
 class UnMarkdownReplacement
 {
-    const TYPE_INLINE = 1;
+    const TYPE_LEAF_BLOCK = 1;
     const TYPE_CONTAINER_BLOCK = 2;
-    const TYPE_LEAF_BLOCK = 3;
+    const TYPE_INLINE = 3;
     const TYPE_SPECIAL = 4; // special: no markdown e.g. cleanup etc.
 
     /**
@@ -46,12 +46,13 @@ class UnMarkdownReplacement
 
     /**
      * UnMarkdownReplacement constructor.
-     * @param string $regex
-     * @param string|callable $replace
-     * @param string $description
-     * @param string $type
+     *
+     * @param string $regex The regex to exec.
+     * @param string|callable $replace The replace pattern or callback function.
+     * @param string $description A short description about the replacement e.g. "heading with # (h1 to h6)"
+     * @param int $type Any of TYPE_INLINE, TYPE_LEAF_BLOCK, TYPE_CONTAINER_BLOCK or TYPE_SPECIAL, only informational.
      */
-    public function __construct(string $regex, $replace, string $description = '', string $type = self::TYPE_INLINE)
+    public function __construct(string $regex, $replace, string $description = '', int $type = self::TYPE_INLINE)
     {
         $this->isCallable = is_callable($replace);
         $this->isString = is_string($replace);
