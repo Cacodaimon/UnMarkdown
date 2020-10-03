@@ -253,7 +253,7 @@ class BlockUnorderedTaskListTest extends TestCase
         );
     }
 
-    public function testEscapedUnorderedTask(): void
+    public function testEscapedUnorderedTasks(): void
     {
         self::assertSame(
             '* [ ] Not a task list item (lvl 1)',
@@ -283,6 +283,24 @@ class BlockUnorderedTaskListTest extends TestCase
         self::assertSame(
             '- [x] Not a task list item (lvl 1)',
             $this->classUnderTest->strip('\- [x] Not a task list item (lvl 1)')
+        );
+    }
+
+    public function testMultipleUnorderedTasks(): void
+    {
+        self::assertSame(
+            "• ⭕ list item 1\n• ❌ list item 2\n• ❌ list item 1",
+            $this->classUnderTest->strip("+ [ ] list item 1\n+ [x] list item 2\n+ [x] list item 1")
+        );
+
+        self::assertSame(
+            "• ⭕ list item 1\n• ❌ list item 2\n• ❌ list item 1",
+            $this->classUnderTest->strip("- [ ] list item 1\n- [x] list item 2\n- [x] list item 1")
+        );
+
+        self::assertSame(
+            "• ⭕ list item 1\n• ❌ list item 2\n• ❌ list item 1",
+            $this->classUnderTest->strip("* [ ] list item 1\n* [x] list item 2\n* [x] list item 1")
         );
     }
 }

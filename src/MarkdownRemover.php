@@ -72,19 +72,19 @@ class MarkdownRemover
                 UnMarkdownReplacement::TYPE_LEAF_BLOCK
             ),
             new UnMarkdownReplacement(
-                '/(?:^|\R)(\s*)(\*|\+|-)\s{1,3}\[x\]\s+((?!\2).+?)(?:\R|\Z)/i',
+                '/(^\s*)(\*|\+|-)\s{1,3}\[x\]\s+((?!\2).+?)(?:$)/im',
                 "\${1}$checkedTaskListPrefix\${3}",
                 'task list (checked) with *|+|-',
                 UnMarkdownReplacement::TYPE_CONTAINER_BLOCK
             ),
             new UnMarkdownReplacement(
-                '/(?:^|\R)(\s*)(\*|\+|-)\s{1,3}\[\s\]\s+((?!\2).+?)(?:\R|\Z)/i',
+                '/(^\s*)(\*|\+|-)\s{1,3}\[\s\]\s+((?!\2).+?)(?:$)/im',
                 "\${1}$unCheckedTaskListPrefix\${3}",
                 'task list (un checked) with *|+|-',
                 UnMarkdownReplacement::TYPE_CONTAINER_BLOCK
             ),
             new UnMarkdownReplacement(
-                '/(?:^|\R)(\s*)(\*|\+|-)(?:\s)((?!\2).+?)(?:\R|\Z)/',
+                '/(^\s*)(\*|\+|-)(?:\s)((?!\2).+?)(?:$)/m',
                 "\${1}$unorderedListPrefix\${3}",
                 'list with *|+|-',
                 UnMarkdownReplacement::TYPE_CONTAINER_BLOCK

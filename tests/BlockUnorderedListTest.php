@@ -165,4 +165,22 @@ class BlockUnorderedListTest extends TestCase
             $this->classUnderTest->strip($noChange)
         );
     }
+
+    public function testMultipleListItems(): void
+    {
+        self::assertSame(
+            "• list item 1\n• list item 2\n• list item 1",
+            $this->classUnderTest->strip("+ list item 1\n+ list item 2\n+ list item 1")
+        );
+
+        self::assertSame(
+            "• list item 1\n• list item 2\n• list item 1",
+            $this->classUnderTest->strip("- list item 1\n- list item 2\n- list item 1")
+        );
+
+        self::assertSame(
+            "• list item 1\n• list item 2\n• list item 1",
+            $this->classUnderTest->strip("* list item 1\n* list item 2\n* list item 1")
+        );
+    }
 }
