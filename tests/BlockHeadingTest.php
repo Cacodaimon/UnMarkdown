@@ -4,6 +4,11 @@ namespace UnMarkdown\Tests;
 use UnMarkdown\MarkdownRemover;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class BlockHeadingTest
+ * @package UnMarkdown\Tests
+ * @author Guido Krömer <mail@cacodaemon.de>
+ */
 class BlockHeadingTest extends TestCase
 {
     /**

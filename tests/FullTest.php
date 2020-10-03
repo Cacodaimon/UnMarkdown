@@ -3,7 +3,6 @@ namespace UnMarkdown\Tests;
 
 use Parsedown;
 use Ubench;
-use UnMarkdown\MarkdownRemover;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,31 +15,13 @@ use PHPUnit\Framework\TestCase;
 class FullTest extends TestCase
 {
     /**
-     * @var MarkdownRemover
-     */
-    private $classUnderTest;
-
-    /**
      * @var String
      */
     private $markdownCheatsheet;
 
     public function setUp(): void
     {
-        $this->classUnderTest = new MarkdownRemover();
         $this->markdownCheatsheet = file_get_contents(__DIR__ . '/Markdown-Cheatsheet.md');
-    }
-
-    public function testCheatSheet(): void
-    {
-        echo $this->classUnderTest->strip($this->markdownCheatsheet);
-        self::assertTrue(true);
-    }
-
-    public function testCheatSheetWithParsedown(): void
-    {
-        echo strip_tags(Parsedown::instance()->text($this->markdownCheatsheet));
-        self::assertTrue(true);
     }
 
     public function testPerformance(): void
@@ -53,7 +34,7 @@ class FullTest extends TestCase
             (new \UnMarkdown\MarkdownRemover())->strip($that->markdownCheatsheet);
         })['timeRaw'];
 
-        echo "Parsedown $resultParsedown vs Stripper $resultStripper" . PHP_EOL;
+        echo "Parsedown $resultParsedown vs UnMarkdown $resultStripper" . PHP_EOL;
 
         self::assertLessThanOrEqual($resultParsedown, $resultStripper);
     }

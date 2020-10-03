@@ -4,6 +4,11 @@ namespace UnMarkdown\Tests;
 use UnMarkdown\MarkdownRemover;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class BlockSetextHeadingTest
+ * @package UnMarkdown\Tests
+ * @author Guido Krömer <mail@cacodaemon.de>
+ */
 class BlockSetextHeadingTest extends TestCase
 {
     /**
@@ -19,81 +24,81 @@ class BlockSetextHeadingTest extends TestCase
     public function testHeadingAndRulers(): void
     {
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n======="));
 
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n-------"));
 
         self::assertSame(
-            "Foo\nbar\n",
+            "Foo\nbar\n\n",
             $this->classUnderTest->strip("Foo\nbar\n---"));
 
         self::assertSame(
-            "Foo\nbar\n",
+            "Foo\nbar\n\n",
             $this->classUnderTest->strip("Foo\nbar\n==="));
     }
 
     public function testUnderliningCanBeAnyLength(): void
     {
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n="));
 
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n-"));
 
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n=="));
 
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n--"));
 
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n===="));
 
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n----"));
 
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n========"));
 
         self::assertSame(
-            "Foo bar\n",
+            "Foo bar\n\n",
             $this->classUnderTest->strip("Foo bar\n--------"));
     }
 
     public function testLeadingSpacedAHeadingOrRulers(): void
     {
         self::assertSame(
-            "Foo\nbar\n",
+            "Foo\nbar\n\n",
             $this->classUnderTest->strip("Foo\nbar\n ---"));
 
         self::assertSame(
-            "Foo\nbar\n",
+            "Foo\nbar\n\n",
             $this->classUnderTest->strip("Foo\nbar\n ==="));
 
         self::assertSame(
-            "Foo\nbar\n",
+            "Foo\nbar\n\n",
             $this->classUnderTest->strip("Foo\nbar\n  ---"));
 
         self::assertSame(
-            "Foo\nbar\n",
+            "Foo\nbar\n\n",
             $this->classUnderTest->strip("Foo\nbar\n  ==="));
 
         self::assertSame(
-            "Foo\nbar\n",
+            "Foo\nbar\n\n",
             $this->classUnderTest->strip("Foo\nbar\n   ---"));
 
         self::assertSame(
-            "Foo\nbar\n",
+            "Foo\nbar\n\n",
             $this->classUnderTest->strip("Foo\nbar\n   ==="));
 
         self::assertSame(

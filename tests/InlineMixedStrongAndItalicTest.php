@@ -4,6 +4,11 @@ namespace UnMarkdown\Tests;
 use UnMarkdown\MarkdownRemover;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class InlineMixedStrongAndItalicTest
+ * @package UnMarkdown\Tests
+ * @author Guido Krömer <mail@cacodaemon.de>
+ */
 class InlineMixedStrongAndItalicTest extends TestCase
 {
     /**

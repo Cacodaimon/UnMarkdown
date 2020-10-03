@@ -1,7 +1,8 @@
 {
     "name": "caco/un-markdown",
-    "description": "A PHP library which removes markdown formatting from text.",
+    "description": "A PHP library which removes markdown \"formatting\" from text.",
     "type": "library",
+    "version": "0.0.1",
     "require-dev": {
         "phpunit/phpunit": "^8.5",
         "erusev/parsedown": "^1.7",

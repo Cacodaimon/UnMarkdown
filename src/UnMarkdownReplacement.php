@@ -6,12 +6,16 @@ use InvalidArgumentException;
 /**
  * Class UnMarkdownReplacement
  * @package UnMarkdown
+ * @author Guido Krömer <mail@cacodaemon.de>
  */
 class UnMarkdownReplacement
 {
     const TYPE_LEAF_BLOCK = 1;
+
     const TYPE_CONTAINER_BLOCK = 2;
+
     const TYPE_INLINE = 3;
+
     const TYPE_SPECIAL = 4; // special: no markdown e.g. cleanup etc.
 
     /**
@@ -20,7 +24,7 @@ class UnMarkdownReplacement
     private $regex;
 
     /**
-     * @var string
+     * @var string|callable
      */
     private $replace;
 
@@ -37,11 +41,6 @@ class UnMarkdownReplacement
     /**
      * @var boolean
      */
-    private $isCallable;
-
-    /**
-     * @var boolean
-     */
     private $isString;
 
     /**
@@ -54,21 +53,17 @@ class UnMarkdownReplacement
      */
     public function __construct(string $regex, $replace, string $description = '', int $type = self::TYPE_INLINE)
     {
-        $this->isCallable = is_callable($replace);
-        $this->isString = is_string($replace);
-        if (!$this->isCallable && !$this->isString) {
-            throw new InvalidArgumentException('$replace must be a string or a callable.');
-        }
-
         $this->regex = $regex;
-        $this->replace = $replace;
+        $this->setReplace($replace);
         $this->description = $description;
         $this->type = $type;
     }
 
     /**
-     * @param string $markdown
-     * @return string
+     * Perfroms the replace operation on the given text.
+     *
+     * @param string $markdown The text to modify.
+     * @return string The modified text.
      */
     public function replace(string $markdown): string
     {
@@ -77,5 +72,30 @@ class UnMarkdownReplacement
         }
 
         return preg_replace_callback($this->regex, $this->replace, $markdown);
+    }
+
+    /**
+     * Sets the replacement string or function.
+     *
+     * @param string|callable $replace The replacement operation.
+     */
+    public function setReplace($replace): void
+    {
+        $this->isString = is_string($replace);
+        if (!is_callable($replace) && !$this->isString) {
+            throw new InvalidArgumentException('$replace must be of type string or a callable.');
+        }
+
+        $this->replace = $replace;
+    }
+
+    /**
+     * Gets the description text.
+     *
+     * @return string The description.
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
     }
 }

@@ -7,6 +7,7 @@ namespace UnMarkdown;
  * Removes markdown "formatting" from text while preserving the structure.
  *
  * @package UnMarkdown
+ * @author Guido Krömer <mail@cacodaemon.de>
  */
 class MarkdownRemover
 {
@@ -227,7 +228,7 @@ class MarkdownRemover
     /**
      * @return array
      */
-    public function getReplacements(): array
+    public function &getReplacements(): array
     {
         return $this->replacements;
     }
