@@ -19,17 +19,17 @@ class InlineLinkTest extends TestCase
     public function testInlineStyleLink(): void
     {
         self::assertSame(
-            '🔗 https://www.google.com Test replacement',
+            'I\'m an inline-style link 🔗 https://www.google.com Test replacement',
             $this->classUnderTest->strip('[I\'m an inline-style link](https://www.google.com) Test replacement')
         );
 
         self::assertSame(
-            'Test 🔗 https://www.google.com replacement',
+            'Test I\'m an inline-style link 🔗 https://www.google.com replacement',
             $this->classUnderTest->strip('Test [I\'m an inline-style link](https://www.google.com) replacement')
         );
 
         self::assertSame(
-            'Test replacement 🔗 https://www.google.com',
+            'Test replacement I\'m an inline-style link 🔗 https://www.google.com',
             $this->classUnderTest->strip('Test replacement [I\'m an inline-style link](https://www.google.com)')
         );
     }
@@ -37,17 +37,17 @@ class InlineLinkTest extends TestCase
     public function testInlineStyleLinkWithTitle(): void
     {
         self::assertSame(
-            '🔗 https://www.google.com "Google\'s Homepage" Test replacement',
+            'I\'m an inline-style link with title 🔗 https://www.google.com "Google\'s Homepage" Test replacement',
             $this->classUnderTest->strip('[I\'m an inline-style link with title](https://www.google.com "Google\'s Homepage") Test replacement')
         );
 
         self::assertSame(
-            'Test 🔗 https://www.google.com "Google\'s Homepage" replacement',
+            'Test I\'m an inline-style link with title 🔗 https://www.google.com "Google\'s Homepage" replacement',
             $this->classUnderTest->strip('Test [I\'m an inline-style link with title](https://www.google.com "Google\'s Homepage") replacement')
         );
 
         self::assertSame(
-            'Test replacement 🔗 https://www.google.com "Google\'s Homepage"',
+            'Test replacement I\'m an inline-style link with title 🔗 https://www.google.com "Google\'s Homepage"',
             $this->classUnderTest->strip('Test replacement [I\'m an inline-style link with title](https://www.google.com "Google\'s Homepage")')
         );
     }

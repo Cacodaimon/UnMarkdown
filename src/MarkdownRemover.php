@@ -41,9 +41,15 @@ class MarkdownRemover
     {
         $this->replacements = [
             new UnMarkdownReplacement(
-                '/(?:^|\n)(?:\s{0,3})(?:={3,}|-{3,}|\*{3,}|_{3,})(?:\s*?)(?:\n|\Z)/',
+                '/(?:^|\n)((?:.+\n)+)(?:\s{0,3})(?:(=+|-+))(?:\s*?)(?:\n|\Z)/',
+                "\${1}\n",
+                'setext heading (Heading\n======, Heading\n------)',
+                UnMarkdownReplacement::TYPE_LEAF_BLOCK
+            ),
+            new UnMarkdownReplacement(
+                '/(?:^|\n)(?:\s{0,3})(-|\*|_)(?:( *\1){2,})(?:\s*?)(?:\n|\Z)/',
                 '',
-                'heading (======, ------), hr (---, ***, ___)',
+                'thematic break (hr) (---, ***, ___)',
                 UnMarkdownReplacement::TYPE_LEAF_BLOCK
             ),
             new UnMarkdownReplacement(
@@ -116,7 +122,7 @@ class MarkdownRemover
             ),
             new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\(([^\)]+)(?<=[^\\\\])\)/',
-                "$linkPrefix\${2}",
+                "\${1} $linkPrefix\${2}",
                 'link (inline)',
                 UnMarkdownReplacement::TYPE_INLINE
             ),
@@ -133,7 +139,7 @@ class MarkdownRemover
                 UnMarkdownReplacement::TYPE_INLINE
             ),
             new UnMarkdownReplacement(
-                '/\\\\(\*|\+|\[|\]|\(|\)|-|#|_|`|~|>|!|\\\\)/',
+                '/\\\\(\*|\+|\[|\]|\(|\)|=|-|#|_|`|~|>|!|\\\\)/',
                 '${1}',
                 'unescape (\* -> *)',
                 UnMarkdownReplacement::TYPE_SPECIAL

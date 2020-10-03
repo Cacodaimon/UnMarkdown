@@ -13,8 +13,9 @@ The goal is to convert markdown to plain text for chat notifications….
 ## TODO
 
 - [ ] Support of reference links and images
-- [ ] Be more precise when parsing "setext headings", e.g. [example 67](https://github.github.com/gfm/#example-67)
-- [ ] Support "Thematic breaks" with spaces  e.g. [example 17](https://github.github.com/gfm/#example-17), [example 21](https://github.github.com/gfm/#example-21), [example 22](https://github.github.com/gfm/#example-22), [example 24](https://github.github.com/gfm/#example-24) …
+- [x] Be more precise when parsing "setext headings", e.g. [example 67](https://github.github.com/gfm/#example-67)
+- [x] Better links without loosing link name
+- [x] Support "Thematic breaks" with spaces  e.g. [example 17](https://github.github.com/gfm/#example-17), [example 21](https://github.github.com/gfm/#example-21), [example 22](https://github.github.com/gfm/#example-22), [example 24](https://github.github.com/gfm/#example-24) …
 - [x] Fix "block" tests to be compliant with [GitHub Flavored Markdown Spec](https://github.github.com/gfm/#tables-extension-)
 - [x] Support quoting: `\*\*foo\*\*` should become `**foo**` and not `\\foo\\`
 - [x] Merge similar regex (e.g. strong with _ and strong with *) into single regex, should improve performance.

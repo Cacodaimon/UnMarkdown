@@ -73,17 +73,17 @@ class InlineImageTest extends TestCase
     public function testEscapedInlineImage(): void
     {
         self::assertSame(
-            '!🔗 https://example-com/image.jpg Test replacement',
+            '!inline image alt text 🔗 https://example-com/image.jpg Test replacement',
             $this->classUnderTest->strip('\![inline image alt text](https://example-com/image.jpg) Test replacement')
         );
 
         self::assertSame(
-            'Test !🔗 https://example-com/image.jpg replacement',
+            'Test !inline image alt text 🔗 https://example-com/image.jpg replacement',
             $this->classUnderTest->strip('Test \![inline image alt text](https://example-com/image.jpg) replacement')
         );
 
         self::assertSame(
-            'Test replacement !🔗 https://example-com/image.jpg',
+            'Test replacement !inline image alt text 🔗 https://example-com/image.jpg',
             $this->classUnderTest->strip('Test replacement \![inline image alt text](https://example-com/image.jpg)')
         );
 
@@ -93,7 +93,7 @@ class InlineImageTest extends TestCase
         );
 
         self::assertSame(
-            'Test replacement !🔗 https://example-com/image.jpg',
+            'Test replacement !inline image alt text 🔗 https://example-com/image.jpg',
             $this->classUnderTest->strip('Test replacement \![inline image alt text](https://example-com/image.jpg)')
         );
 

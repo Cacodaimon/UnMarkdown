@@ -163,7 +163,7 @@ class BlockQuoteTest extends TestCase
         );
 
         self::assertSame(
-            "\n💬 block quote 🔗 https://www.google.com",
+            "\n💬 block quote link 🔗 https://www.google.com",
             $this->classUnderTest->strip('> block quote [link](https://www.google.com)')
         );
 

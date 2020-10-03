@@ -4,7 +4,7 @@ namespace UnMarkdown\Tests;
 use UnMarkdown\MarkdownRemover;
 use PHPUnit\Framework\TestCase;
 
-class BlockHeadingAndRulerTest extends TestCase
+class BlockThematicBreakTest extends TestCase
 {
     /**
      * @var MarkdownRemover
@@ -16,32 +16,15 @@ class BlockHeadingAndRulerTest extends TestCase
         $this->classUnderTest = new MarkdownRemover();
     }
 
-    public function testHeadingAndRulers(): void
+    public function testRulers(): void
     {
-        self::assertEmpty($this->classUnderTest->strip('======'));
-        self::assertEmpty($this->classUnderTest->strip('------'));
         self::assertEmpty($this->classUnderTest->strip('---'));
         self::assertEmpty($this->classUnderTest->strip('***'));
         self::assertEmpty($this->classUnderTest->strip('___'));
     }
 
-    public function testNotAHeadingOrRulers(): void
+    public function testNotARulers(): void
     {
-        self::assertSame(
-            $noChange = 'aaa ======',
-            $this->classUnderTest->strip($noChange)
-        );
-
-        self::assertSame(
-            $noChange = 'aaa ------',
-            $this->classUnderTest->strip($noChange)
-        );
-
-        self::assertSame(
-            $noChange = 'aaa ===',
-            $this->classUnderTest->strip($noChange)
-        );
-
         self::assertSame(
             $noChange = 'aaa ---',
             $this->classUnderTest->strip($noChange)
@@ -54,21 +37,6 @@ class BlockHeadingAndRulerTest extends TestCase
 
         self::assertSame(
             $noChange = 'aaa ___',
-            $this->classUnderTest->strip($noChange)
-        );
-
-        self::assertSame(
-            $noChange = '====== aaa',
-            $this->classUnderTest->strip($noChange)
-        );
-
-        self::assertSame(
-            $noChange = '------ aaa',
-            $this->classUnderTest->strip($noChange)
-        );
-
-        self::assertSame(
-            $noChange = '=== aaa',
             $this->classUnderTest->strip($noChange)
         );
 
@@ -88,27 +56,23 @@ class BlockHeadingAndRulerTest extends TestCase
         );
     }
 
-    public function testLeadingSpacedAHeadingOrRulers(): void
+    public function testLeadingSpacedRulers(): void
     {
-        self::assertEmpty($this->classUnderTest->strip('==='));
+        self::assertEmpty($this->classUnderTest->strip('___'));
         self::assertEmpty($this->classUnderTest->strip('---'));
         self::assertEmpty($this->classUnderTest->strip('***'));
         self::assertEmpty($this->classUnderTest->strip(' ___'));
-        self::assertEmpty($this->classUnderTest->strip(' ==='));
         self::assertEmpty($this->classUnderTest->strip(' ---'));
         self::assertEmpty($this->classUnderTest->strip(' ***'));
         self::assertEmpty($this->classUnderTest->strip('  ___'));
-        self::assertEmpty($this->classUnderTest->strip('  ==='));
         self::assertEmpty($this->classUnderTest->strip('  ---'));
         self::assertEmpty($this->classUnderTest->strip('  ***'));
         self::assertEmpty($this->classUnderTest->strip('   ___'));
-        self::assertEmpty($this->classUnderTest->strip('   ==='));
-        self::assertEmpty($this->classUnderTest->strip('   ---'));
-        self::assertEmpty($this->classUnderTest->strip('   ***'));
         self::assertEmpty($this->classUnderTest->strip('   ___'));
+        self::assertEmpty($this->classUnderTest->strip('   ***'));
 
         self::assertSame(
-            $noChange = '    ===',
+            $noChange = '    ___',
             $this->classUnderTest->strip($noChange)
         );
 
@@ -121,30 +85,32 @@ class BlockHeadingAndRulerTest extends TestCase
             $noChange = '    ***',
             $this->classUnderTest->strip($noChange)
         );
-
-        self::assertSame(
-            $noChange = '    ___',
-            $this->classUnderTest->strip($noChange)
-        );
     }
 
-    public function testEscapedHeadingOrRulers(): void
+    public function testSpacedBetweenRulers(): void
     {
-        self::assertSame(
-            '\====== aaa',
-            $this->classUnderTest->strip('\====== aaa')
-        );
+        self::assertEmpty($this->classUnderTest->strip('- - -'));
+        self::assertEmpty($this->classUnderTest->strip('_ _ _'));
+        self::assertEmpty($this->classUnderTest->strip('* * *'));
+        self::assertEmpty($this->classUnderTest->strip(' - - -'));
+        self::assertEmpty($this->classUnderTest->strip(' _ _ _'));
+        self::assertEmpty($this->classUnderTest->strip(' * * *'));
+        self::assertEmpty($this->classUnderTest->strip('- - - '));
+        self::assertEmpty($this->classUnderTest->strip('_ _ _ '));
+        self::assertEmpty($this->classUnderTest->strip('* * * '));
+        self::assertEmpty($this->classUnderTest->strip(' --  - -- - -- - --'));
+        self::assertEmpty($this->classUnderTest->strip(' __  _ __ _ __ _ __'));
+        self::assertEmpty($this->classUnderTest->strip(' **  * ** * ** * **'));
+        self::assertEmpty($this->classUnderTest->strip('-     -      -      -'));
+        self::assertEmpty($this->classUnderTest->strip('_     _      _      _'));
+        self::assertEmpty($this->classUnderTest->strip('*     *      *      *'));
+        self::assertEmpty($this->classUnderTest->strip('- - -    '));
+        self::assertEmpty($this->classUnderTest->strip('_ _ _    '));
+        self::assertEmpty($this->classUnderTest->strip('* * *    '));
+    }
 
-        self::assertSame(
-            '------ aaa',
-            $this->classUnderTest->strip('\------ aaa')
-        );
-
-        self::assertSame(
-            '\=== aaa',
-            $this->classUnderTest->strip('\=== aaa')
-        );
-
+    public function testEscapedRulers(): void
+    {
         self::assertSame(
             '--- aaa',
             $this->classUnderTest->strip('\--- aaa')
