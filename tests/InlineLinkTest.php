@@ -52,36 +52,58 @@ class InlineLinkTest extends TestCase
         );
     }
 
-    public function testReferenceStyleLink(): void
+    public function testInlineStyleLinkWithFragment(): void
     {
         self::assertSame(
-            '🔗 I\'m a reference-style link Test replacement',
-            $this->classUnderTest->strip('[I\'m a reference-style link][Arbitrary case-insensitive reference text] Test replacement')
+            'link 🔗 #fragment',
+            $this->classUnderTest->strip('[link](#fragment)')
+        );
+    }
+
+    public function testInlineStyleLinkImageAsName(): void
+    {
+        self::assertSame(
+            '🖼️ moon 🔗 moon.jpg',
+            $this->classUnderTest->strip('[![moon](moon.jpg)](/uri)')
+        );
+    }
+
+    public function testReferenceStyleLink(): void
+    {
+        $mdLinkText =  '[I\'m a reference-style link][Arbitrary case-insensitive reference text]';
+        $mdLinkRefText =  '[arbitrary case-insensitive reference text]: https://example.com/foo.php';
+
+        $mdLinkNumber =  '[You can use numbers for reference-style link definitions][1]';
+        $mdLinkRefNumber =  '[1]: /examples/foo.php';
+
+        self::assertSame(
+            "I'm a reference-style link 🔗 https://example.com/foo.php Test replacement\nSome text",
+            $this->classUnderTest->strip("$mdLinkText Test replacement\nSome text\n$mdLinkRefText\n[1]: foo")
         );
 
         self::assertSame(
-            'Test 🔗 I\'m a reference-style link replacement',
-            $this->classUnderTest->strip('Test [I\'m a reference-style link][Arbitrary case-insensitive reference text] replacement')
+            "Test I'm a reference-style link 🔗 https://example.com/foo.php replacement\nSome text",
+            $this->classUnderTest->strip("Test $mdLinkText replacement\nSome text\n$mdLinkRefText")
         );
 
         self::assertSame(
-            'Test replacement 🔗 I\'m a reference-style link',
-            $this->classUnderTest->strip('Test replacement [I\'m a reference-style link][Arbitrary case-insensitive reference text]')
+            "Test replacement I'm a reference-style link 🔗 https://example.com/foo.php\nSome text",
+            $this->classUnderTest->strip("Test replacement $mdLinkText\nSome text\n$mdLinkRefText")
         );
 
         self::assertSame(
-            '🔗 You can use numbers for reference-style link definitions Test replacement',
-            $this->classUnderTest->strip('[You can use numbers for reference-style link definitions][1] Test replacement')
+            "You can use numbers for reference-style link definitions 🔗 /examples/foo.php Test replacement\nSome text",
+            $this->classUnderTest->strip("$mdLinkNumber Test replacement\nSome text\n$mdLinkRefNumber")
         );
 
         self::assertSame(
-            'Test 🔗 You can use numbers for reference-style link definitions replacement',
-            $this->classUnderTest->strip('Test [You can use numbers for reference-style link definitions][1] replacement')
+            "Test You can use numbers for reference-style link definitions 🔗 /examples/foo.php replacement\nSome text",
+            $this->classUnderTest->strip("Test $mdLinkNumber replacement\nSome text\n$mdLinkRefNumber")
         );
 
         self::assertSame(
-            'Test replacement 🔗 You can use numbers for reference-style link definitions',
-            $this->classUnderTest->strip('Test replacement [You can use numbers for reference-style link definitions][1]')
+            "Test replacement You can use numbers for reference-style link definitions 🔗 /examples/foo.php\nSome text",
+            $this->classUnderTest->strip("Test replacement $mdLinkNumber\nSome text\n$mdLinkRefNumber")
         );
     }
 

@@ -21,6 +21,11 @@ class MarkdownRemover
     private $codeBlocks;
 
     /**
+     * @var array
+     */
+    private $refs;
+
+    /**
      * Stripper constructor.
      *
      * @param string $linkPrefix
@@ -31,7 +36,7 @@ class MarkdownRemover
      * @param string $unCheckedTaskListPrefix
      */
     public function __construct(
-        string $linkPrefix = '🔗 ',
+        string $linkPrefix = ' 🔗 ',
         string $imagePrefix = '🖼️ ',
         string $quotePrefix = '💬 ',
         string $unorderedListPrefix = '• ',
@@ -115,6 +120,16 @@ class MarkdownRemover
                 UnMarkdownReplacement::TYPE_INLINE
             ),
             new UnMarkdownReplacement(
+                '/(?:\R)(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\]: {0,1}(.+)/',
+                function ($matches) {
+                    $this->refs[strtolower($matches[1])] = $matches[2];
+
+                    return '';
+                },
+                'Store refs temporarily',
+                UnMarkdownReplacement::TYPE_SPECIAL
+            ),
+            new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)!\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\[([^\[]+)(?<=[^\\\\])\]/',
                 "$imagePrefix\${1}",
                 'image (reference)',
@@ -122,13 +137,21 @@ class MarkdownRemover
             ),
             new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\(([^\)]+)(?<=[^\\\\])\)/',
-                "\${1} $linkPrefix\${2}",
+                "\${1}$linkPrefix\${2}",
                 'link (inline)',
                 UnMarkdownReplacement::TYPE_INLINE
             ),
             new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\[([^\[]+)(?<=[^\\\\])\]/',
-                "$linkPrefix\${1}",
+                function ($matches) use ($linkPrefix) {
+                    if (!isset($this->refs[strtolower($matches[2])])) {
+                        return "\${1}$linkPrefix\${2}";
+                    }
+
+                    $ref = $this->refs[strtolower($matches[2])];
+
+                    return "$matches[1]$linkPrefix$ref";
+                },
                 'link (reference)',
                 UnMarkdownReplacement::TYPE_INLINE
             ),
@@ -145,6 +168,8 @@ class MarkdownRemover
                 UnMarkdownReplacement::TYPE_SPECIAL
             ),
         ];
+        $this->codeBlocks = [];
+        $this->refs = [];
     }
 
     /**
@@ -155,11 +180,11 @@ class MarkdownRemover
      */
     public function strip(string $markdown): string
     {
-        $this->codeBlocks = [];
         $result = $markdown;
         foreach ($this->replacements as $replacement) {
             $result = $replacement->replace($result);
         }
+        $this->refs = [];
 
         return $this->recoverCodeBlocks($result);
     }
@@ -187,6 +212,9 @@ class MarkdownRemover
      */
     private function recoverCodeBlocks(string $markdown): string
     {
-        return str_replace(array_keys($this->codeBlocks), $this->codeBlocks, $markdown);
+        $tmp = str_replace(array_keys($this->codeBlocks), $this->codeBlocks, $markdown);
+        $this->codeBlocks = [];
+
+        return $tmp;
     }
 }

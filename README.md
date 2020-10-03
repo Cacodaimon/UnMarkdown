@@ -12,8 +12,9 @@ The goal is to convert markdown to plain text for chat notifications….
 
 ## TODO
 
+- [ ] Optional replace with unicode http://slothsoft.net/getResource.php/slothsoft/unicode-mapper
 - [ ] Perform a global check (e.g. doc looks still "good")
-- [ ] Support of reference links and images
+- [x] Support of reference links
 - [x] Be more precise when parsing "setext headings", e.g. [example 67](https://github.github.com/gfm/#example-67)
 - [x] Better links without loosing link name
 - [x] Support "Thematic breaks" with spaces  e.g. [example 17](https://github.github.com/gfm/#example-17), [example 21](https://github.github.com/gfm/#example-21), [example 22](https://github.github.com/gfm/#example-22), [example 24](https://github.github.com/gfm/#example-24) …
