@@ -2,13 +2,13 @@
 
 A simple PHP library to convert Markdown back to plain text.
 
-The goal is to convert markdown to plain text for chat notifications….
+The purpose of this lib is to convert markdown to plain text for e.g. chat notifications….
+ * Do not loose the whole text structure as it would happen with the following call `strip_tags(Parsedown::instance()->text('…'))`
  * Be more performant than using a full featured markdown parser with AST support.
  * Decorate some content with prefixes e.g.
    * 🔗 for links
    * 💬 for comments 
    * • for unordered list items.
- * Do not loose the whole text structure as it would happen with the following call `strip_tags(Parsedown::instance()->text('…'))`
 
 ## Usage
 
@@ -28,7 +28,7 @@ echo $markdownRemover->strip('Wow look at this link [example.com](https://exampl
 
 Would produce `Wow look at this link example.com "Link prefix" https://example.com/ isn't it awesome?`.
 
-You can change specific rules, remove them or replace them easily.
+You can change specific rules, remove or replace them easily.
 
 ```php
 $classUnderTest = new MarkdownRemover();
