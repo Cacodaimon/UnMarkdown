@@ -167,6 +167,12 @@ class MarkdownRemover
                 'unescape (\* -> *)',
                 UnMarkdownReplacement::TYPE_SPECIAL
             ),
+            new UnMarkdownReplacement(
+                '/\n{3,}/',
+                "\n\n",
+                'remove multiple new lines (\n\n\n -> \n)',
+                UnMarkdownReplacement::TYPE_SPECIAL
+            ),
         ];
         $this->codeBlocks = [];
         $this->refs = [];
@@ -216,5 +222,13 @@ class MarkdownRemover
         $this->codeBlocks = [];
 
         return $tmp;
+    }
+
+    /**
+     * @return array
+     */
+    public function getReplacements(): array
+    {
+        return $this->replacements;
     }
 }
