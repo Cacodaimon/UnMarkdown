@@ -79,7 +79,7 @@ class InlineItalicTest extends TestCase
         );
 
         self::assertSame(
-            '⚫ Test * italic replacement',
+            '• Test * italic replacement',
             $this->classUnderTest->strip('* Test * italic replacement')
         );
     }

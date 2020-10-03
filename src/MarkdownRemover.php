@@ -34,9 +34,9 @@ class MarkdownRemover
         string $linkPrefix = '🔗 ',
         string $imagePrefix = '🖼️ ',
         string $quotePrefix = '💬 ',
-        string $unorderedListPrefix = '⚫ ',
-        string $checkedTaskListPrefix = '⚫ ❌ ',
-        string $unCheckedTaskListPrefix = '⚫ ⭕ '
+        string $unorderedListPrefix = '• ',
+        string $checkedTaskListPrefix = '• ❌ ',
+        string $unCheckedTaskListPrefix = '• ⭕ '
     )
     {
         $this->replacements = [

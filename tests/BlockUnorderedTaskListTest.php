@@ -19,47 +19,47 @@ class BlockUnorderedTaskListTest extends TestCase
     public function testUnorderedTaskListListAsterisk(): void
     {
         self::assertSame(
-            '⚫ ⭕ A task list item (lvl 1)',
+            '• ⭕ A task list item (lvl 1)',
             $this->classUnderTest->strip('* [ ] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('* [x] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('* [X] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '  ⚫ ⭕ A task list item (lvl 2)',
+            '  • ⭕ A task list item (lvl 2)',
             $this->classUnderTest->strip('  * [ ] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '  ⚫ ❌ A task list item (lvl 2)',
+            '  • ❌ A task list item (lvl 2)',
             $this->classUnderTest->strip('  * [x] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '  ⚫ ❌ A task list item (lvl 2)',
+            '  • ❌ A task list item (lvl 2)',
             $this->classUnderTest->strip('  * [X] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '    ⚫ ⭕ A task list item (lvl 3)',
+            '    • ⭕ A task list item (lvl 3)',
             $this->classUnderTest->strip('    * [ ] A task list item (lvl 3)')
         );
 
         self::assertSame(
-            '    ⚫ ❌ A task list item (lvl 3)',
+            '    • ❌ A task list item (lvl 3)',
             $this->classUnderTest->strip('    * [x] A task list item (lvl 3)')
         );
 
         self::assertSame(
-            '    ⚫ ❌ A task list item (lvl 3)',
+            '    • ❌ A task list item (lvl 3)',
             $this->classUnderTest->strip('    * [X] A task list item (lvl 3)')
         );
 
@@ -82,47 +82,47 @@ class BlockUnorderedTaskListTest extends TestCase
     public function testUnorderedListMinus(): void
     {
         self::assertSame(
-            '⚫ ⭕ A task list item (lvl 1)',
+            '• ⭕ A task list item (lvl 1)',
             $this->classUnderTest->strip('- [ ] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('- [x] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('- [X] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '  ⚫ ⭕ A task list item (lvl 2)',
+            '  • ⭕ A task list item (lvl 2)',
             $this->classUnderTest->strip('  - [ ] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '  ⚫ ❌ A task list item (lvl 2)',
+            '  • ❌ A task list item (lvl 2)',
             $this->classUnderTest->strip('  - [x] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '  ⚫ ❌ A task list item (lvl 2)',
+            '  • ❌ A task list item (lvl 2)',
             $this->classUnderTest->strip('  - [X] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '    ⚫ ⭕ A task list item (lvl 3)',
+            '    • ⭕ A task list item (lvl 3)',
             $this->classUnderTest->strip('    - [ ] A task list item (lvl 3)')
         );
 
         self::assertSame(
-            '    ⚫ ❌ A task list item (lvl 3)',
+            '    • ❌ A task list item (lvl 3)',
             $this->classUnderTest->strip('    - [x] A task list item (lvl 3)')
         );
 
         self::assertSame(
-            '    ⚫ ❌ A task list item (lvl 3)',
+            '    • ❌ A task list item (lvl 3)',
             $this->classUnderTest->strip('    - [X] A task list item (lvl 3)')
         );
 
@@ -145,47 +145,47 @@ class BlockUnorderedTaskListTest extends TestCase
     public function testUnorderedListPlus(): void
     {
         self::assertSame(
-            '⚫ ⭕ A task list item (lvl 1)',
+            '• ⭕ A task list item (lvl 1)',
             $this->classUnderTest->strip('+ [ ] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('+ [x] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('+ [X] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '  ⚫ ⭕ A task list item (lvl 2)',
+            '  • ⭕ A task list item (lvl 2)',
             $this->classUnderTest->strip('  + [ ] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '  ⚫ ❌ A task list item (lvl 2)',
+            '  • ❌ A task list item (lvl 2)',
             $this->classUnderTest->strip('  + [x] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '  ⚫ ❌ A task list item (lvl 2)',
+            '  • ❌ A task list item (lvl 2)',
             $this->classUnderTest->strip('  + [X] A task list item (lvl 2)')
         );
 
         self::assertSame(
-            '    ⚫ ⭕ A task list item (lvl 3)',
+            '    • ⭕ A task list item (lvl 3)',
             $this->classUnderTest->strip('    + [ ] A task list item (lvl 3)')
         );
 
         self::assertSame(
-            '    ⚫ ❌ A task list item (lvl 3)',
+            '    • ❌ A task list item (lvl 3)',
             $this->classUnderTest->strip('    + [x] A task list item (lvl 3)')
         );
 
         self::assertSame(
-            '    ⚫ ❌ A task list item (lvl 3)',
+            '    • ❌ A task list item (lvl 3)',
             $this->classUnderTest->strip('    + [X] A task list item (lvl 3)')
         );
 
@@ -208,47 +208,47 @@ class BlockUnorderedTaskListTest extends TestCase
     public function testUnorderedListUpToThreeSpacesBetweenBulletAndCheckbox(): void
     {
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('*  [x] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ⭕ A task list item (lvl 1)',
+            '• ⭕ A task list item (lvl 1)',
             $this->classUnderTest->strip('+  [ ] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('-  [x] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ⭕ A task list item (lvl 1)',
+            '• ⭕ A task list item (lvl 1)',
             $this->classUnderTest->strip('*   [ ] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ❌ A task list item (lvl 1)',
+            '• ❌ A task list item (lvl 1)',
             $this->classUnderTest->strip('+   [x] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            '⚫ ⭕ A task list item (lvl 1)',
+            '• ⭕ A task list item (lvl 1)',
             $this->classUnderTest->strip('-   [ ] A task list item (lvl 1)')
         );
 
         self::assertSame(
-            $noChange = '⚫    [ ] A task list item (lvl 1)',
+            $noChange = '•    [ ] A task list item (lvl 1)',
             $this->classUnderTest->strip($noChange)
         );
 
         self::assertSame(
-            $noChange = '⚫    [x] A task list item (lvl 1)',
+            $noChange = '•    [x] A task list item (lvl 1)',
             $this->classUnderTest->strip($noChange)
         );
 
         self::assertSame(
-            $noChange = '⚫    [ ] A task list item (lvl 1)',
+            $noChange = '•    [ ] A task list item (lvl 1)',
             $this->classUnderTest->strip($noChange)
         );
     }

@@ -7,11 +7,12 @@ The goal is to convert markdown to plain text for chat notifications….
  * Decorate some content with prefixes e.g.
    * 🔗 for links
    * 💬 for comments 
-   * ⚫ for unordered list items.
+   * • for unordered list items.
  * Do not loose the whole text structure as it would happen with the following call `strip_tags(Parsedown::instance()->text('…'))`
 
 ## TODO
 
+- [ ] Perform a global check (e.g. doc looks still "good")
 - [ ] Support of reference links and images
 - [x] Be more precise when parsing "setext headings", e.g. [example 67](https://github.github.com/gfm/#example-67)
 - [x] Better links without loosing link name
@@ -29,16 +30,16 @@ This is currently a WIP do not use this library!
 ## Usage
 
 ```php
-$stripper = new MarkdownRemover();
-echo $stripper->strip('Hello **World**');
+$markdownRemover = new MarkdownRemover();
+echo $markdownRemover->strip('Hello **World**');
 ```
 
 Would produce `Hello World`.
 
 
 ```php
-$stripper = new MarkdownRemover('"Link prefix" ', '"Image prefix️" ', '"Comment prefix" ', '… ');
-echo $stripper->strip('Wow look at this link [example.com](https://example.com/) isn't it **awesome**?');
+$markdownRemover = new MarkdownRemover('"Link prefix" ', '"Image prefix️" ', '"Comment prefix" ', '… ');
+echo $markdownRemover->strip('Wow look at this link [example.com](https://example.com/) isn't it **awesome**?');
 ```
 
 Would produce `Wow look at this link "Link prefix" https://example.com/ isn't it awesome?`.

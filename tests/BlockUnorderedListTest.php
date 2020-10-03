@@ -19,17 +19,17 @@ class BlockUnorderedListTest extends TestCase
     public function testUnorderedListAsterisk(): void
     {
         self::assertSame(
-            '⚫ A list item (lvl 1)',
+            '• A list item (lvl 1)',
             $this->classUnderTest->strip('* A list item (lvl 1)')
         );
 
         self::assertSame(
-            '  ⚫ A list item (lvl 2)',
+            '  • A list item (lvl 2)',
             $this->classUnderTest->strip('  * A list item (lvl 2)')
         );
 
         self::assertSame(
-            '    ⚫ A list item (lvl 3)',
+            '    • A list item (lvl 3)',
             $this->classUnderTest->strip('    * A list item (lvl 3)')
         );
 
@@ -39,7 +39,7 @@ class BlockUnorderedListTest extends TestCase
         );
 
         self::assertSame(
-            '⚫ A list item (lvl 1)',
+            '• A list item (lvl 1)',
             $this->classUnderTest->strip('* A list item (lvl 1)')
         );
     }
@@ -47,17 +47,17 @@ class BlockUnorderedListTest extends TestCase
     public function testUnorderedListMinus(): void
     {
         self::assertSame(
-            '⚫ A list item (lvl 1)',
+            '• A list item (lvl 1)',
             $this->classUnderTest->strip('- A list item (lvl 1)')
         );
 
         self::assertSame(
-            '  ⚫ A list item (lvl 2)',
+            '  • A list item (lvl 2)',
             $this->classUnderTest->strip('  - A list item (lvl 2)')
         );
 
         self::assertSame(
-            '    ⚫ A list item (lvl 3)',
+            '    • A list item (lvl 3)',
             $this->classUnderTest->strip('    - A list item (lvl 3)')
         );
 
@@ -67,7 +67,7 @@ class BlockUnorderedListTest extends TestCase
         );
 
         self::assertSame(
-            '⚫ A list item (lvl 1)',
+            '• A list item (lvl 1)',
             $this->classUnderTest->strip('- A list item (lvl 1)')
         );
     }
@@ -75,17 +75,17 @@ class BlockUnorderedListTest extends TestCase
     public function testUnorderedListPlus(): void
     {
         self::assertSame(
-            '⚫ A list item (lvl 1)',
+            '• A list item (lvl 1)',
             $this->classUnderTest->strip('+ A list item (lvl 1)')
         );
 
         self::assertSame(
-            '  ⚫ A list item (lvl 2)',
+            '  • A list item (lvl 2)',
             $this->classUnderTest->strip('  + A list item (lvl 2)')
         );
 
         self::assertSame(
-            '    ⚫ A list item (lvl 3)',
+            '    • A list item (lvl 3)',
             $this->classUnderTest->strip('    + A list item (lvl 3)')
         );
 
@@ -95,7 +95,7 @@ class BlockUnorderedListTest extends TestCase
         );
 
         self::assertSame(
-            '⚫ A list item (lvl 1)',
+            '• A list item (lvl 1)',
             $this->classUnderTest->strip('+ A list item (lvl 1)')
         );
     }
