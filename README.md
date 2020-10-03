@@ -3,12 +3,15 @@
 A simple PHP library to convert Markdown back to plain text.
 
 The purpose of this lib is to convert markdown to plain text for e.g. chat notifications….
- * Do not loose the whole text structure as it would happen with the following call `strip_tags(Parsedown::instance()->text('…'))`
- * Be more performant than using a full featured markdown parser with AST support.
+ * Does not loose the whole text structure as it would happen with the following call `strip_tags(Parsedown::instance()->text('…'))`
+ * It is more performant than using a full featured markdown parser with AST support.
  * Decorate some content with prefixes e.g.
    * 🔗 for links
    * 💬 for comments 
    * • for unordered list items.
+ * 🏍️ Uses only regular expression for text transformation.
+ * Provides a good level (Not 100% 🤷‍♂️) of compliance with [GitHub Flavored Markdown Spec](https://github.github.com/gfm/)
+ * Testdriven with over 65 unit tests 💪 and more than 370 assertions.
 
 ## Usage
 
