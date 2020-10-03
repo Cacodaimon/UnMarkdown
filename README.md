@@ -15,6 +15,8 @@ The purpose of this lib is to convert markdown to plain text for e.g. chat notif
 
 ## Usage
 
+The basic usage is as simple as using a common markdown parser lib.
+
 ```php
 $markdownRemover = new MarkdownRemover();
 echo $markdownRemover->strip('Hello **World**');
