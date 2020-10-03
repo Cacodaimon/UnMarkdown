@@ -1,19 +1,19 @@
 <?php
 namespace UnMarkdown\Tests;
 
-use UnMarkdown\Stripper;
+use UnMarkdown\MarkdownRemover;
 use PHPUnit\Framework\TestCase;
 
 class InlineImageTest extends TestCase
 {
     /**
-     * @var Stripper
+     * @var MarkdownRemover
      */
     private $classUnderTest;
 
     public function setUp(): void
     {
-        $this->classUnderTest = new Stripper();
+        $this->classUnderTest = new MarkdownRemover();
     }
 
     public function testInlineImage(): void

@@ -28,7 +28,7 @@ This is currently a WIP do not use this library!
 ## Usage
 
 ```php
-$stripper = new Stripper();
+$stripper = new MarkdownRemover();
 echo $stripper->strip('Hello **World**');
 ```
 
@@ -36,7 +36,7 @@ Would produce `Hello World`.
 
 
 ```php
-$stripper = new Stripper('"Link prefix" ', '"Image prefix️" ', '"Comment prefix" ', '… ');
+$stripper = new MarkdownRemover('"Link prefix" ', '"Image prefix️" ', '"Comment prefix" ', '… ');
 echo $stripper->strip('Wow look at this link [example.com](https://example.com/) isn't it **awesome**?');
 ```
 

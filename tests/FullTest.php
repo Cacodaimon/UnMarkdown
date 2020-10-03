@@ -3,7 +3,7 @@ namespace UnMarkdown\Tests;
 
 use Parsedown;
 use Ubench;
-use UnMarkdown\Stripper;
+use UnMarkdown\MarkdownRemover;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class FullTest extends TestCase
 {
     /**
-     * @var Stripper
+     * @var MarkdownRemover
      */
     private $classUnderTest;
 
@@ -27,7 +27,7 @@ class FullTest extends TestCase
 
     public function setUp(): void
     {
-        $this->classUnderTest = new Stripper();
+        $this->classUnderTest = new MarkdownRemover();
         $this->markdownCheatsheet = file_get_contents(__DIR__ . '/Markdown-Cheatsheet.md');
     }
 
@@ -50,7 +50,7 @@ class FullTest extends TestCase
         })['timeRaw'];
 
         $resultStripper = $this->bench('UnMarkdown', function ($that) {
-            (new \UnMarkdown\Stripper())->strip($that->markdownCheatsheet);
+            (new \UnMarkdown\MarkdownRemover())->strip($that->markdownCheatsheet);
         })['timeRaw'];
 
         echo "Parsedown $resultParsedown vs Stripper $resultStripper" . PHP_EOL;

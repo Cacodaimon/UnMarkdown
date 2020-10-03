@@ -2,11 +2,13 @@
 namespace UnMarkdown;
 
 /**
- * Class Stripper
- * TODO: find a better name for this…
+ * Class MarkdownRemover
+ *
+ * Removes markdown "formatting" from text while preserving the structure.
+ *
  * @package UnMarkdown
  */
-class Stripper
+class MarkdownRemover
 {
     /**
      * @var array
@@ -53,6 +55,12 @@ class Stripper
                 UnMarkdownReplacement::TYPE_LEAF_BLOCK
             ),
             new UnMarkdownReplacement(
+                '/(?:^|\n)\s{0,3}#{1,6}\s(.*)/',
+                "\n\${1}\n",
+                'heading with # (h1 to h6)',
+                UnMarkdownReplacement::TYPE_LEAF_BLOCK
+            ),
+            new UnMarkdownReplacement(
                 '/(?:^|\n)(\s*)(\*|\+|-)\s{1,3}\[x\]\s+((?!\2).+?)(?:\n|\Z)/i',
                 "\${1}$checkedTaskListPrefix\${3}",
                 'task list (checked) with *|+|-',
@@ -75,12 +83,6 @@ class Stripper
                 "\n$quotePrefix\${1}",
                 'blockquotes',
                 UnMarkdownReplacement::TYPE_CONTAINER_BLOCK
-            ),
-            new UnMarkdownReplacement(
-                '/(?:^|\n)\s{0,3}#{1,6}\s(.*)/',
-                "\n\${1}\n",
-                'heading with # (h1 to h6)',
-                UnMarkdownReplacement::TYPE_LEAF_BLOCK
             ),
             new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)(_|\*)\1((?!(\1|\s)).+?)(?<=[^\\\\])\1{2}/',
