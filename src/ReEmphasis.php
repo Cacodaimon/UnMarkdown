@@ -371,7 +371,7 @@ class ReEmphasis
     ];
 
     /**
-     * Transforms the text to italic look alike characters.
+     * Transforms the text to 𝘪𝘵𝘢𝘭𝘪𝘤 look alike characters.
      *
      * @param string $text The text to transform.
      * @return string The transformed text.
@@ -382,7 +382,7 @@ class ReEmphasis
     }
 
     /**
-     * Transforms the text to bold look alike characters.
+     * Transforms the text to 𝗯𝗼𝗹𝗱 look alike characters.
      *
      * @param string $text The text to transform.
      * @return string The transformed text.
@@ -393,7 +393,7 @@ class ReEmphasis
     }
 
     /**
-     * Transforms the text to bold + italic look alike characters.
+     * Transforms the text to 𝙗𝙤𝙡𝙙 + 𝙞𝙩𝙖𝙡𝙞𝙘 look alike characters.
      *
      * @param string $text The text to transform.
      * @return string The transformed text.
@@ -404,7 +404,7 @@ class ReEmphasis
     }
 
     /**
-     * Transforms the text to monospaced look alike characters.
+     * Transforms the text to 𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎𝚍 look alike characters.
      *
      * @param string $text The text to transform.
      * @return string The transformed text.
@@ -415,7 +415,7 @@ class ReEmphasis
     }
 
     /**
-     * Transforms the text to double struck look alike characters.
+     * Transforms the text to 𝕕𝕠𝕦𝕓𝕝𝕖 𝕤𝕥𝕣𝕦𝕔𝕜 look alike characters.
      *
      * @param string $text The text to transform.
      * @return string The transformed text.
