@@ -2,8 +2,6 @@
 
 namespace UnMarkdown;
 
-use InvalidArgumentException;
-
 /**
  * Class ReEmphasis
  *
