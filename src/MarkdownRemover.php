@@ -138,10 +138,21 @@ class MarkdownRemover
             ),
             new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\(([^\)]+)(?<=[^\\\\])\)/',
-                "\${1}$linkPrefix\${2}",
+                function ($matches) {
+                    if ($matches[1] === $matches[2]) {
+                        return $matches[2];
+                    }
+                    return $matches[1] . $linkPrefix . $matches[2];
+                },
                 'link (inline)',
                 UnMarkdownReplacement::TYPE_INLINE
             ),
+            // new UnMarkdownReplacement(
+            //     '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\(([^\)]+)(?<=[^\\\\])\)/',
+            //     "\${1}$linkPrefix\${2}",
+            //     'link (inline)',
+            //     UnMarkdownReplacement::TYPE_INLINE
+            // ),
             new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\[([^\[]+)(?<=[^\\\\])\]/',
                 function ($matches) use ($linkPrefix) {
