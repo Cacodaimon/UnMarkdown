@@ -138,7 +138,7 @@ class MarkdownRemover
             ),
             new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\(([^\)]+)(?<=[^\\\\])\)/',
-                function ($matches) {
+                function ($matches) use ($linkPrefix) {
                     if ($matches[1] === $matches[2]) {
                         return $matches[2];
                     }
@@ -147,12 +147,6 @@ class MarkdownRemover
                 'link (inline)',
                 UnMarkdownReplacement::TYPE_INLINE
             ),
-            // new UnMarkdownReplacement(
-            //     '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\(([^\)]+)(?<=[^\\\\])\)/',
-            //     "\${1}$linkPrefix\${2}",
-            //     'link (inline)',
-            //     UnMarkdownReplacement::TYPE_INLINE
-            // ),
             new UnMarkdownReplacement(
                 '/(?<=[^\\\\]|^)\[([^\[]+)(?<=[^\\\\])\](?<=[^\\\\])\[([^\[]+)(?<=[^\\\\])\]/',
                 function ($matches) use ($linkPrefix) {
